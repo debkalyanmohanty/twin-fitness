@@ -1,10 +1,21 @@
 export const exerciseOptions = {
         method: 'GET',
+        params: {limit: '100'},
         headers: {
           'X-RapidAPI-Key': process.env.REACT_APP_RAPID_API_KEY,
           'X-RapidAPI-Host': process.env.REACT_APP_RAPID_API_HOST
-        }
+        },
+        
 } 
+export const youtubeOptions = {
+  method: 'GET',
+  params: {limit: '100'},
+  headers: {
+    'X-RapidAPI-Host': process.env.REACT_APP_YOUTUBE_API_HOST,
+    'X-RapidAPI-Key': process.env.REACT_APP_RAPID_API_KEY ,
+  },
+ 
+};
 
 
 export const fetchData = async (url , options) => {
