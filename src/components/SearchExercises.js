@@ -1,16 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Button, Stack, TextField, Typography } from '@mui/material';
 
-import { exerciseOptions, fetchData } from '../utils/fetchData';
+import {  fetchData } from '../utils/fetchData';
 import HorizontalScrollbar from './HorizontalScrollbar';
 
+const exerciseOptions = {
+  method: 'GET',
+  params: {limit: '300'},
+  headers: {
+    'X-RapidAPI-Key': process.env.REACT_APP_RAPID_API_KEY,
+    'X-RapidAPI-Host': process.env.REACT_APP_RAPID_API_HOST
+  },
+  
+} 
 const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
   const [search, setSearch] = useState('');
   const [bodyParts, setBodyParts] = useState([]);
-
   useEffect(() => {
     const fetchExercisesData = async () => {
-      const bodyPartsData = await fetchData(`${process.env.REACT_APP_EXERCISE_DB_URL}/exercises/bodyPartList`, exerciseOptions);
+      const bodyPartsData = await fetchData(`${process.env.REACT_APP_EXERCISE_DB_URL}/exercises/bodyPartList?limit=300`, exerciseOptions);
 
       setBodyParts(['all', ...bodyPartsData]);
     };
@@ -20,8 +28,7 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
 
   const handleSearch = async () => {
     if (search) {
-      const exercisesData = await fetchData(`${process.env.REACT_APP_EXERCISE_DB_URL}/exercises`, exerciseOptions);
-
+      const exercisesData = await fetchData(`${process.env.REACT_APP_EXERCISE_DB_URL}/exercises?limit=300`, exerciseOptions);
       const searchedExercises = exercisesData.filter(
         (item) => item.name.toLowerCase().includes(search)
                || item.target.toLowerCase().includes(search)
@@ -30,6 +37,7 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
       );
 
       window.scrollTo({ top: 1800, left: 100, behavior: 'smooth' });
+
       setSearch('');
       setExercises(searchedExercises);
     }

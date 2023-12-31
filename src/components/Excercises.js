@@ -18,12 +18,13 @@ const Excercises = ({exercises , setExercises , bodyPart }) => {
       const fetchExercisesData = async() => {
         let exercisesData = [];
         if(bodyPart === "all"){
-          exercisesData = await fetchData(`${process.env.REACT_APP_EXERCISE_DB_URL}/exercises`, exerciseOptions);
+          exercisesData = await fetchData(`${process.env.REACT_APP_EXERCISE_DB_URL}/exercises?limit=300`, exerciseOptions);
         }
         else {
-          exercisesData  = await fetchData(`${process.env.REACT_APP_EXERCISE_DB_URL}/exercises/bodyPart/${bodyPart}`, exerciseOptions);
+          exercisesData  = await fetchData(`${process.env.REACT_APP_EXERCISE_DB_URL}/exercises/bodyPart/${bodyPart}?limit=300`, exerciseOptions);
         }
         setExercises(exercisesData)
+        
       }
       fetchExercisesData();
   } , [bodyPart])

@@ -21,16 +21,16 @@ const ExerciseDetail = () => {
       const exerciseDbUrl = process.env.REACT_APP_EXERCISE_DB_URL;
       const youtubeSearchUrl = process.env.REACT_APP_YOUTUBE_VIDEO_URL;
 
-      const exerciseDetailData = await fetchData(`${exerciseDbUrl}/exercises/exercise/${id}`, exerciseOptions);
+      const exerciseDetailData = await fetchData(`${exerciseDbUrl}/exercises/exercise/${id}?limit=200`, exerciseOptions);
       setExerciseDetail(exerciseDetailData);
 
       const exerciseVideosData = await fetchData(`${youtubeSearchUrl}/search?query=${exerciseDetailData.name} exercise`, youtubeOptions);
       setExerciseVideos(exerciseVideosData.contents);
 
-      const targetMuscleExercisesData = await fetchData(`${exerciseDbUrl}/exercises/target/${exerciseDetailData.target}`, exerciseOptions);
+      const targetMuscleExercisesData = await fetchData(`${exerciseDbUrl}/exercises/target/${exerciseDetailData.target}?limit=300`, exerciseOptions);
       setTargetMuscleExercises(targetMuscleExercisesData);
 
-      const equimentExercisesData = await fetchData(`${exerciseDbUrl}/exercises/equipment/${exerciseDetailData.equipment}`, exerciseOptions);
+      const equimentExercisesData = await fetchData(`${exerciseDbUrl}/exercises/equipment/${exerciseDetailData.equipment}?limit=300`, exerciseOptions);
       setEquipmentExercises(equimentExercisesData);
     };
 
